@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ '/css/base.css' | url }}"/>
   {% if templateCss %}
-  <link rel="stylesheet" href="{{ '/css/templates/' + templateCss + '.css' | url }}"/>
+  <link rel="stylesheet" href="{{ ('/css/templates/' + templateCss + '.css') | url }}"/>
   {% endif %}
 </head>
 <body>
