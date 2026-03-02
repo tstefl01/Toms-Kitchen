@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fallow — Fried Chicken</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f0e0c;
+      color: #f0ebe0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(160deg, #1a1208 0%, #0f0e0c 60%);
+      border-bottom: 1px solid #2a2418;
+      padding: 22px 40px 18px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(196,140,40,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #c48c28; margin-bottom: 5px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700; color: #f5efe0; margin-bottom: 5px; line-height: 1; }
+    .hero h1 em { font-style: italic; color: #c48c28; }
+    .hero-sub { font-size: 9px; color: #5a5040; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .hero-meta { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .meta-label { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: #5a5040; margin-bottom: 1px; }
+    .meta-value { font-size: 12px; font-weight: 500; color: #c48c28; }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px 20px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      background: #131210;
+      border: 1px solid #242018;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .card-title {
+      font-size: 8px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+      color: #c48c28; margin-bottom: 9px; padding-bottom: 7px; border-bottom: 1px solid #242018;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .ing-row { display: flex; justify-content: space-between; padding: 2.5px 0; border-bottom: 1px solid #1a1814; gap: 8px; }
+    .ing-row:last-child { border-bottom: none; }
+    .ing-name { font-size: 10.5px; color: #a09070; }
+    .ing-amt  { font-size: 10.5px; font-weight: 600; color: #f0ebe0; white-space: nowrap; }
+
+    /* FLOW DIAGRAM */
+    .flow-card { grid-column: 1 / -1; }
+    .dredge-flow { display: flex; align-items: stretch; justify-content: center; gap: 0; padding: 4px 0 2px; }
+    .flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .flow-box {
+      width: 100%; max-width: 138px;
+      background: #1a1610; border: 1px solid #3a2e18; border-radius: 8px;
+      padding: 9px 6px; text-align: center;
+    }
+    .flow-box.hi { border-color: #c48c28; background: linear-gradient(135deg, #1e1a0e, #161210); }
+    .flow-label { font-size: 8.5px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #c48c28; margin-bottom: 1px; margin-top: 4px; }
+    .flow-desc { font-size: 9.5px; color: #6a5a3a; line-height: 1.35; }
+    .flow-desc b { color: #e0d8c0; }
+    .flow-arrow { font-size: 18px; color: #2e2618; flex-shrink: 0; margin: 0 3px; align-self: center; padding-bottom: 12px; }
+
+    /* INGREDIENTS ROW */
+    .ingredients-row { grid-column: 1 / -1; display: grid; grid-template-columns: 1.15fr 1.35fr 0.85fr; gap: 12px; }
+
+    /* METHOD */
+    .method-card { grid-column: 1 / -1; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .step { display: flex; gap: 9px; padding: 7px 12px 7px 0; border-right: 1px solid #1a1814; margin-right: 12px; }
+    .step:nth-child(3n), .step:last-child { border-right: none; margin-right: 0; }
+    .step-num { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #2e2618; flex-shrink: 0; line-height: 1; margin-top: 1px; min-width: 16px; }
+    .step-title { font-size: 8.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6a5a3a; margin-bottom: 2px; }
+    .step-desc { font-size: 10.5px; line-height: 1.5; color: #a09070; }
+    .step-desc strong { color: #e0d8c0; font-weight: 600; }
+    .step-desc em { color: #c48c28; font-style: normal; font-weight: 500; }
+    .badge { display: inline-block; background: #1a1208; border: 1px solid #3a2e18; border-radius: 4px; padding: 1px 5px; font-size: 9px; font-weight: 600; color: #c48c28; }
+
+    /* CALLOUT */
+    .callout { grid-column: 1 / -1; background: linear-gradient(90deg,#1a1208,#161410,#1a1208); border: 1px solid #3a2e18; border-left: 3px solid #c48c28; border-radius: 0 8px 8px 0; padding: 9px 14px; font-size: 10.5px; color: #7a6a50; line-height: 1.55; display: flex; align-items: center; gap: 10px; }
+    .callout strong { color: #c48c28; }
+
+    .footer { text-align: center; padding: 4px 0 16px; font-family: 'Playfair Display', serif; font-size: 0.65rem; color: #2a2418; letter-spacing: 0.4em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Fallow Restaurant · London</p>
+  <h1>Fried <em>Chicken</em></h1>
+  <p class="hero-sub">Sriracha Marinade &nbsp;·&nbsp; Dry – Wet – Dry Dredge &nbsp;·&nbsp; Chicken &amp; Waffles</p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-label">Serves</div><div class="meta-value">4</div></div>
+    <div class="meta-item"><div class="meta-label">Marinade</div><div class="meta-value">2 hrs</div></div>
+    <div class="meta-item"><div class="meta-label">Fry Time</div><div class="meta-value">8–9 min</div></div>
+    <div class="meta-item"><div class="meta-label">Oil Temp</div><div class="meta-value">170°C</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- CALLOUT: CHICKEN SALT -->
+  <div class="callout">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.5" flex-shrink="0" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span><strong>Chicken Salt — make first:</strong> Toast Szechuan pepper, black pepper &amp; cumin seeds until fragrant, blitz fine, then combine: <strong>12.5g</strong> Szechuan · <strong>100g</strong> stock powder · <strong>25g</strong> salt · <strong>25g</strong> MSG · <strong>5g each</strong> black pepper, cumin, paprika, onion powder, garlic powder · <strong>1g</strong> oregano. Used in the marinade and as a finishing dust.</span>
+  </div>
+
+  <!-- DREDGE FLOW -->
+  <div class="card flow-card">
+    <div class="card-title">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="#c48c28"><path d="M12 2C9 7 6 8 6 13a6 6 0 0012 0c0-5-3-6-6-11zm0 16a3 3 0 01-3-3c0-2.5 1.5-3.5 3-6 1.5 2.5 3 3.5 3 6a3 3 0 01-3 3z"/></svg>
+      The Dredge Process
+    </div>
+    <div class="dredge-flow">
+
+      <div class="flow-step">
+        <div class="flow-box hi">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.4">
+            <path d="M4 8h16l-1.5 7a2 2 0 01-2 1.7H7.5a2 2 0 01-2-1.7L4 8z"/>
+            <path d="M2 8h20" stroke-linecap="round"/>
+            <path d="M9 17v2M15 17v2M8 19h8" stroke-linecap="round"/>
+          </svg>
+          <div class="flow-label">Marinade</div>
+          <div class="flow-desc">Sriracha + dashi<br/>2 hrs in fridge</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">›</div>
+
+      <div class="flow-step">
+        <div class="flow-box hi">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.4">
+            <path d="M12 3l2 5h5l-4 3 1.5 5L12 13l-4.5 3L9 11 5 8h5z" fill="rgba(196,140,40,0.15)"/>
+          </svg>
+          <div class="flow-label">+ 100g Dry</div>
+          <div class="flow-desc">Stir into marinade<br/>builds craggy clumps</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">›</div>
+
+      <div class="flow-step">
+        <div class="flow-box hi">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.4">
+            <ellipse cx="12" cy="18" rx="9" ry="3"/>
+            <path d="M3 18v-8a9 3 0 0118 0v8"/>
+            <path d="M8 12c0 0 1-2 4-2s4 2 4 2" stroke-linecap="round"/>
+          </svg>
+          <div class="flow-label">Dry Dredge</div>
+          <div class="flow-desc">Toss <b>60 times</b><br/>tap off excess</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">›</div>
+
+      <div class="flow-step">
+        <div class="flow-box hi">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.4">
+            <path d="M12 4C8.5 4 5 7 5 11c0 4.5 3.5 7 7 7s7-2.5 7-7c0-4-3.5-7-7-7z" fill="rgba(196,140,40,0.12)"/>
+            <path d="M8 11c0 2 1.8 3.5 4 3.5s4-1.5 4-3.5" stroke-linecap="round"/>
+            <path d="M10 7.5c0 0 .8-.5 2-.5s2 .5 2 .5" stroke-linecap="round"/>
+          </svg>
+          <div class="flow-label">Wet Dredge</div>
+          <div class="flow-desc">In &amp; out fast<br/>tap off liquid</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">›</div>
+
+      <div class="flow-step">
+        <div class="flow-box hi">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.4">
+            <ellipse cx="12" cy="18" rx="9" ry="3"/>
+            <path d="M3 18v-8a9 3 0 0118 0v8"/>
+            <path d="M8 12c0 0 1-2 4-2s4 2 4 2" stroke-linecap="round"/>
+          </svg>
+          <div class="flow-label">Dry Again</div>
+          <div class="flow-desc">Toss <b>60 times</b><br/>crust locked in</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">›</div>
+
+      <div class="flow-step">
+        <div class="flow-box hi">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.4">
+            <path d="M12 2C9 7 6 8.5 6 13a6 6 0 0012 0c0-4.5-3-6-6-11z" fill="rgba(196,140,40,0.2)"/>
+            <path d="M10 15c.5 1 3.5 1 4 0" stroke-linecap="round"/>
+          </svg>
+          <div class="flow-label">Fry 170°C</div>
+          <div class="flow-desc">8–9 min · drain<br/>dust with chkn salt</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INGREDIENTS -->
+  <div class="ingredients-row">
+    <div class="card">
+      <div class="card-title">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+        Marinade
+      </div>
+      <div class="ing-row"><span class="ing-name">Dashi</span><span class="ing-amt">40g</span></div>
+      <div class="ing-row"><span class="ing-name">Chicken salt</span><span class="ing-amt">40g</span></div>
+      <div class="ing-row"><span class="ing-name">Sriracha</span><span class="ing-amt">60g</span></div>
+      <div class="ing-row"><span class="ing-name">Water</span><span class="ing-amt">60g</span></div>
+      <div class="ing-row"><span class="ing-name">Dry dredge (added just before)</span><span class="ing-amt">100g</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Dry Dredge
+      </div>
+      <div class="ing-row"><span class="ing-name">Plain flour</span><span class="ing-amt">600g</span></div>
+      <div class="ing-row"><span class="ing-name">Cornflour</span><span class="ing-amt">200g</span></div>
+      <div class="ing-row"><span class="ing-name">Tapioca flour</span><span class="ing-amt">200g</span></div>
+      <div class="ing-row"><span class="ing-name">Baking powder</span><span class="ing-amt">25g</span></div>
+      <div class="ing-row"><span class="ing-name">Onion powder</span><span class="ing-amt">25g</span></div>
+      <div class="ing-row"><span class="ing-name">Garlic powder</span><span class="ing-amt">25g</span></div>
+      <div class="ing-row"><span class="ing-name">MSG</span><span class="ing-amt">25g</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="2"><path d="M12 3C8 3 4 6 4 10c0 5 4 8 8 8s8-3 8-8c0-4-4-7-8-7z"/></svg>
+        Wet Dredge
+      </div>
+      <div class="ing-row"><span class="ing-name">Buttermilk</span><span class="ing-amt">80g</span></div>
+      <div class="ing-row"><span class="ing-name">Water</span><span class="ing-amt">30g</span></div>
+      <div class="ing-row"><span class="ing-name">Fresh egg whites</span><span class="ing-amt">60g</span></div>
+    </div>
+  </div>
+
+  <!-- METHOD -->
+  <div class="card method-card">
+    <div class="card-title">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Method
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Prep Chicken</div>
+          <div class="step-desc">Slice <strong>4 chicken breasts</strong> into flat, even pieces for consistent cooking and max crust surface.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Marinade</div>
+          <div class="step-desc">Mix dashi, chicken salt, sriracha &amp; water. Coat chicken, cover, refrigerate <strong>2 hours</strong>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Set Up Dredges</div>
+          <div class="step-desc">Combine dry dredge in one large bowl. Whisk buttermilk, water &amp; egg whites in a second. Heat oil.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Build the Base</div>
+          <div class="step-desc">Stir <em>100g dry dredge</em> into the chicken &amp; marinade. Creates the craggy clumps that anchor the crust.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">First Dry — <em>60×</em></div>
+          <div class="step-desc">Toss in the dry dredge bowl <em>sixty times</em>. Tap off excess. Builds the shaggy layered coating.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Wet Dip</div>
+          <div class="step-desc">Into wet dredge and <strong>straight back out</strong>. Tap off excess liquid immediately.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Second Dry — <em>60×</em></div>
+          <div class="step-desc">Back into dry dredge, <em>sixty more times</em>. This second pass locks in the layers and seals the crust.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-title">Fry</div>
+          <div class="step-desc">Oil to <span class="badge">170°C</span>. Fry <strong>8–9 min</strong> until deeply golden. Work in batches.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">9</div>
+        <div class="step-body">
+          <div class="step-title">Finish &amp; Serve</div>
+          <div class="step-desc">Drain, <em>dust immediately</em> with chicken salt while hot. Serve with waffles and maple syrup.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Fallow &nbsp;·&nbsp; London</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+---
+layout: base.njk
+pageTitle: "Recipes — Tom's Kitchen"
+---
+
+<nav class="breadcrumb">
+  <a href="/">Home</a><span class="sep">›</span>
+  <span>Recipes</span>
+</nav>
+
+<div class="page-header">
+  <h1><em>Recipes</em></h1>
+  <p>Browse by category</p>
+</div>
+
+<div class="card-grid">
+  {% for cat in categories %}
+  <a class="card-link" href="/recipes/{{ cat.slug }}/">
+    <h2>{{ cat.name }}</h2>
+    <div class="card-sub">{{ cat.desc }}</div>
+    {% set count = collections.recipes | withTag(cat.slug) | length %}
+    <div class="card-meta">
+      <span>{{ count }} recipe{{ "s" if count != 1 }}</span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="page-header" style="border-top: 1px solid #2a2418; border-bottom: none; margin-top: 8px;">
+  <h1>All <em>Recipes</em></h1>
+</div>
+
+<div class="card-grid">
+  {% for recipe in collections.recipes %}
+  <a class="card-link" href="{{ recipe.url }}">
+    <h2>{{ recipe.data.title }}</h2>
+    <div class="card-sub">{{ recipe.data.source }}</div>
+    <div class="card-meta">
+      {% for item in recipe.data.meta %}
+      <span>{{ item.label }}: {{ item.value }}</span>
+      {% endfor %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="footer">Tom's Kitchen</div>

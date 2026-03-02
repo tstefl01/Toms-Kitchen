@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Classic Template — Dark / Gold recipe card
+   ========================================================================== */
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(160deg, #1a1208 0%, #0f0e0c 60%);
+  border-bottom: 1px solid #2a2418;
+  padding: 22px 40px 18px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(196,140,40,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #c48c28; margin-bottom: 5px; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700; color: #f5efe0; margin-bottom: 5px; line-height: 1; }
+.hero h1 em { font-style: italic; color: #c48c28; }
+.hero-sub { font-size: 9px; color: #5a5040; letter-spacing: 0.1em; margin-bottom: 12px; }
+.hero-meta { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.hero-actions { margin-top: 10px; }
+.meta-label { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: #5a5040; margin-bottom: 1px; }
+.meta-value { font-size: 12px; font-weight: 500; color: #c48c28; }
+
+/* ── Card Layout ── */
+.recipe-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px 20px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.card {
+  background: #131210;
+  border: 1px solid #242018;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.card-title {
+  font-size: 8px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  color: #c48c28; margin-bottom: 9px; padding-bottom: 7px; border-bottom: 1px solid #242018;
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* ── Ingredients ── */
+.ing-row { display: flex; justify-content: space-between; padding: 2.5px 0; border-bottom: 1px solid #1a1814; gap: 8px; }
+.ing-row:last-child { border-bottom: none; }
+.ing-name { font-size: 10.5px; color: #a09070; }
+.ing-amt  { font-size: 10.5px; font-weight: 600; color: #f0ebe0; white-space: nowrap; }
+.ingredients-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+
+/* ── Flow Diagram ── */
+.flow-card { grid-column: 1 / -1; }
+.dredge-flow { display: flex; align-items: stretch; justify-content: center; gap: 0; padding: 4px 0 2px; flex-wrap: wrap; }
+.flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; min-width: 120px; }
+.flow-box {
+  width: 100%; max-width: 138px;
+  background: #1a1610; border: 1px solid #3a2e18; border-radius: 8px;
+  padding: 9px 6px; text-align: center;
+}
+.flow-box.hi { border-color: #c48c28; background: linear-gradient(135deg, #1e1a0e, #161210); }
+.flow-label { font-size: 8.5px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #c48c28; margin-bottom: 1px; margin-top: 4px; }
+.flow-desc { font-size: 9.5px; color: #6a5a3a; line-height: 1.35; }
+.flow-desc b { color: #e0d8c0; }
+.flow-arrow { font-size: 18px; color: #2e2618; flex-shrink: 0; margin: 0 3px; align-self: center; padding-bottom: 12px; }
+
+/* ── Method Steps ── */
+.method-card { grid-column: 1 / -1; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.step { display: flex; gap: 9px; padding: 7px 12px 7px 0; border-right: 1px solid #1a1814; margin-right: 12px; }
+.step:nth-child(3n), .step:last-child { border-right: none; margin-right: 0; }
+.step-num { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #2e2618; flex-shrink: 0; line-height: 1; margin-top: 1px; min-width: 16px; }
+.step-title { font-size: 8.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6a5a3a; margin-bottom: 2px; }
+.step-desc { font-size: 10.5px; line-height: 1.5; color: #a09070; }
+.step-desc strong { color: #e0d8c0; font-weight: 600; }
+.step-desc em { color: #c48c28; font-style: normal; font-weight: 500; }
+.badge { display: inline-block; background: #1a1208; border: 1px solid #3a2e18; border-radius: 4px; padding: 1px 5px; font-size: 9px; font-weight: 600; color: #c48c28; }
+
+/* ── Callout ── */
+.callout { grid-column: 1 / -1; background: linear-gradient(90deg,#1a1208,#161410,#1a1208); border: 1px solid #3a2e18; border-left: 3px solid #c48c28; border-radius: 0 8px 8px 0; padding: 9px 14px; font-size: 10.5px; color: #7a6a50; line-height: 1.55; display: flex; align-items: center; gap: 10px; }
+.callout strong { color: #c48c28; }
+.callout-icon { flex-shrink: 0; }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .steps-grid { grid-template-columns: 1fr; }
+  .step { border-right: none; margin-right: 0; border-bottom: 1px solid #1a1814; padding-bottom: 10px; }
+  .step:last-child { border-bottom: none; }
+  .hero { padding: 18px 20px 14px; }
+  .hero h1 { font-size: 1.6rem; }
+  .recipe-container { padding: 12px 12px 20px; }
+  .dredge-flow { flex-direction: column; align-items: center; }
+  .flow-arrow { transform: rotate(90deg); padding: 0; margin: 4px 0; }
+}

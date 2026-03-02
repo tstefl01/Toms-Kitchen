@@ -1,0 +1,43 @@
+---
+layout: base.njk
+pagination:
+  data: categories
+  size: 1
+  alias: cat
+permalink: "/recipes/{{ cat.slug }}/"
+eleventyComputed:
+  pageTitle: "{{ cat.name }} — Tom's Kitchen"
+---
+
+<nav class="breadcrumb">
+  <a href="/">Home</a><span class="sep">›</span>
+  <a href="/recipes/">Recipes</a><span class="sep">›</span>
+  <span>{{ cat.name }}</span>
+</nav>
+
+<div class="page-header">
+  <h1><em>{{ cat.name }}</em></h1>
+  <p>{{ cat.desc }}</p>
+</div>
+
+{% set catRecipes = collections.recipes | withTag(cat.slug) %}
+
+<div class="card-grid">
+  {% if catRecipes.length > 0 %}
+    {% for recipe in catRecipes %}
+    <a class="card-link" href="{{ recipe.url }}">
+      <h2>{{ recipe.data.title }}</h2>
+      <div class="card-sub">{{ recipe.data.source }}</div>
+      <div class="card-meta">
+        {% for item in recipe.data.meta %}
+        <span>{{ item.label }}: {{ item.value }}</span>
+        {% endfor %}
+      </div>
+    </a>
+    {% endfor %}
+  {% else %}
+    <div class="empty-state">No recipes here yet — check back soon.</div>
+  {% endif %}
+</div>
+
+<div class="footer">Tom's Kitchen</div>

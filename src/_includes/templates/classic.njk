@@ -1,0 +1,108 @@
+{# ── Breadcrumb ── #}
+<nav class="breadcrumb">
+  <a href="/">Home</a><span class="sep">›</span>
+  <a href="/recipes/">Recipes</a><span class="sep">›</span>
+  {% if tags %}
+    {% set firstTag = tags | first %}
+    {% set cat = firstTag | categoryBySlug %}
+    {% if cat %}
+      <a href="/recipes/{{ cat.slug }}/">{{ cat.name }}</a><span class="sep">›</span>
+    {% endif %}
+  {% endif %}
+  <span>{{ title }}</span>
+</nav>
+
+{# ── Hero ── #}
+<div class="hero">
+  <p class="hero-eyebrow">{{ source }}</p>
+  <h1>{{ title | highlightWord(titleHighlight) | safe }}</h1>
+  <p class="hero-sub">{{ subtitle }}</p>
+  <div class="hero-meta">
+    {% for item in meta %}
+    <div class="meta-item">
+      <div class="meta-label">{{ item.label }}</div>
+      <div class="meta-value">{{ item.value }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="hero-actions">
+    <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href).then(function(){var b=document.querySelector('.share-btn');b.textContent='Copied!';setTimeout(function(){b.textContent='Share'},2000)})">
+      Share
+    </button>
+  </div>
+</div>
+
+<div class="recipe-container">
+
+  {# ── Callout ── #}
+  {% if callout %}
+  <div class="callout">
+    <svg class="callout-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>{{ callout | md | safe }}</span>
+  </div>
+  {% endif %}
+
+  {# ── Flow Diagram ── #}
+  {% if flow %}
+  <div class="card flow-card">
+    <div class="card-title">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="#c48c28"><path d="M12 2C9 7 6 8 6 13a6 6 0 0012 0c0-5-3-6-6-11zm0 16a3 3 0 01-3-3c0-2.5 1.5-3.5 3-6 1.5 2.5 3 3.5 3 6a3 3 0 01-3 3z"/></svg>
+      {{ flowTitle or "The Process" }}
+    </div>
+    <div class="dredge-flow">
+      {% for step in flow %}
+        {% if not loop.first %}
+        <div class="flow-arrow">›</div>
+        {% endif %}
+        <div class="flow-step">
+          <div class="flow-box hi">
+            <div class="flow-label">{{ step.label }}</div>
+            <div class="flow-desc">{{ step.desc | safe }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# ── Ingredients ── #}
+  {% if ingredients %}
+  <div class="ingredients-row">
+    {% for group in ingredients %}
+    <div class="card">
+      <div class="card-title">{{ group.group }}</div>
+      {% for item in group.items %}
+      <div class="ing-row">
+        <span class="ing-name">{{ item.name }}</span>
+        <span class="ing-amt">{{ item.amount }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# ── Method ── #}
+  {% if steps %}
+  <div class="card method-card">
+    <div class="card-title">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#c48c28" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Method
+    </div>
+    <div class="steps-grid">
+      {% for step in steps %}
+      <div class="step">
+        <div class="step-num">{{ loop.index }}</div>
+        <div class="step-body">
+          <div class="step-title">{{ step.title | md | safe }}</div>
+          <div class="step-desc">{{ step.desc | md | safe }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+<div class="footer">{{ source }}</div>

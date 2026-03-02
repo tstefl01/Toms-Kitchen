@@ -1,0 +1,5 @@
+[
+  { "slug": "dinner",   "name": "Dinner",   "desc": "Main courses & centrepieces", "defaultTemplate": "classic" },
+  { "slug": "desserts", "name": "Desserts", "desc": "Sweet things",                "defaultTemplate": "classic" },
+  { "slug": "snacks",   "name": "Snacks",   "desc": "Small bites & sides",         "defaultTemplate": "classic" }
+]
