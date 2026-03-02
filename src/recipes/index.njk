@@ -32,7 +32,7 @@ pageTitle: "Recipes — Tom's Kitchen"
 
 <div class="card-grid">
   {% for recipe in collections.recipes %}
-  <a class="card-link" href="{{ recipe.url }}">
+  <a class="card-link" href="{{ recipe.url | url }}">
     <h2>{{ recipe.data.title }}</h2>
     <div class="card-sub">{{ recipe.data.source }}</div>
     <div class="card-meta">

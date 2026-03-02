@@ -25,7 +25,7 @@ eleventyComputed:
 <div class="card-grid">
   {% if catRecipes.length > 0 %}
     {% for recipe in catRecipes %}
-    <a class="card-link" href="{{ recipe.url }}">
+    <a class="card-link" href="{{ recipe.url | url }}">
       <h2>{{ recipe.data.title }}</h2>
       <div class="card-sub">{{ recipe.data.source }}</div>
       <div class="card-meta">
