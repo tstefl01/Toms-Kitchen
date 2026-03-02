@@ -10,8 +10,8 @@ eleventyComputed:
 ---
 
 <nav class="breadcrumb">
-  <a href="/">Home</a><span class="sep">›</span>
-  <a href="/recipes/">Recipes</a><span class="sep">›</span>
+  <a href="{{ '/' | url }}">Home</a><span class="sep">›</span>
+  <a href="{{ '/recipes/' | url }}">Recipes</a><span class="sep">›</span>
   <span>{{ cat.name }}</span>
 </nav>
 

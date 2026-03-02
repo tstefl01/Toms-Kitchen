@@ -4,7 +4,7 @@ pageTitle: "Recipes — Tom's Kitchen"
 ---
 
 <nav class="breadcrumb">
-  <a href="/">Home</a><span class="sep">›</span>
+  <a href="{{ '/' | url }}">Home</a><span class="sep">›</span>
   <span>Recipes</span>
 </nav>
 
@@ -15,7 +15,7 @@ pageTitle: "Recipes — Tom's Kitchen"
 
 <div class="card-grid">
   {% for cat in categories %}
-  <a class="card-link" href="/recipes/{{ cat.slug }}/">
+  <a class="card-link" href="{{ ('/recipes/' + cat.slug + '/') | url }}">
     <h2>{{ cat.name }}</h2>
     <div class="card-sub">{{ cat.desc }}</div>
     {% set count = collections.recipes | withTag(cat.slug) | length %}

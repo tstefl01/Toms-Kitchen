@@ -52,6 +52,7 @@ module.exports = function (eleventyConfig) {
   });
 
   return {
+    pathPrefix: "/Toms-Kitchen/",
     dir: {
       input: "src",
       output: "_site",
